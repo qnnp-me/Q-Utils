@@ -198,7 +198,6 @@ var prepareRequestData = function (options) { return __awaiter(void 0, void 0, v
                 return [4, formData.convertToBuffer()];
             case 1:
                 data = _c.sent();
-                console.log(data, options.header['content-type']);
                 _c.label = 2;
             case 2: return [2, data];
         }
