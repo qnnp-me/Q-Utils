@@ -1,15 +1,11 @@
 # Q-Utils
 
 ---
-
 ## 简介 Introduction
-
 这是一个开发微信小程序（后期可能支持其他平台）的实用工具封装
-
 ### 目前有的：
-
 - 请求封装，提供 `REQUEST` `GET` 等小程序支持的请求方法封装
-    - 请求封装还提供文件上传能力
+    - `REQUEST` 请求封装还提供文件小程序不具备的批量上传能力
 - `getType: string` 函数，用于获取给定目标的类型信息，返回值如：`function` `object` `array` 等
 
 ## 安装 Install
@@ -19,7 +15,7 @@ npm i @qnnp/q-utils
 ```
 
 ## 使用 Usage
-
+### 基本
 ``` typescript
 // app.ts
 import { init } from '@qnnp/q-utils'
@@ -63,8 +59,7 @@ App<IAppOption>({
     requestFailMiddleware (err, reject) {
       reject(err)
     }
-    // 请求方法都返回 Promise 
   },
 })
-
 ```
+### 基本请求封装 `REQUEST(options: WechatMiniprogram.RequestOption): Promise<WxResponse>`
