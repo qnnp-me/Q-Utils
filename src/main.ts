@@ -46,7 +46,8 @@ export const getType       = getObjectType
 /**
  * 请求封装
  */
-export const REQUEST       = (options: WechatMiniprogram.RequestOption) => (
+export const REQUEST       = (options: WechatMiniprogram.RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => (
   new Promise(async (resolve: (value: WxResponse) => void, reject: (reason: WxError) => void) => {
     // 取值
     let {
@@ -63,6 +64,7 @@ export const REQUEST       = (options: WechatMiniprogram.RequestOption) => (
           },
           env
         }   = app
+    let task: WechatMiniprogram.RequestTask
     // 加载默认请求配置
     options = {
       method     : 'GET',
@@ -129,57 +131,82 @@ export const REQUEST       = (options: WechatMiniprogram.RequestOption) => (
     }
     // 处理请求的数据，如 multipart/form-data 是需要特殊处理的
     if (options.data) options.data = await prepareRequestData(options)
-    wx.request(options)
+    task = wx.request(options)
+    listen && listen(task)
   })
 )
-export const OPTIONS       = (url: string, data?: object, options?: RequestOption) => REQUEST({
+export const OPTIONS       = (url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
   ...options,
   method: 'OPTIONS',
   url,
   data,
-})
-export const GET           = (url: string, data?: object, options?: RequestOption) => REQUEST({
+}, listen)
+export const GET           = (url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
   ...options,
   method: 'GET',
   url,
   data,
-})
-export const HEAD          = (url: string, data?: object, options?: RequestOption) => REQUEST({
+}, listen)
+export const HEAD          = (url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
   ...options,
   method: 'HEAD',
   url,
   data,
-})
-export const POST          = (url: string, data?: object, options?: RequestOption) => REQUEST({
+}, listen)
+export const POST          = (url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
   ...options,
   method: 'POST',
   url,
   data,
-})
-export const PUT           = (url: string, data?: object, options?: RequestOption) => REQUEST({
+}, listen)
+export const PUT           = (url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
   ...options,
   method: 'PUT',
   url,
   data,
-})
-export const DELETE        = (url: string, data?: object, options?: RequestOption) => REQUEST({
+}, listen)
+export const DELETE        = (url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
   ...options,
   method: 'DELETE',
   url,
   data,
-})
-export const TRACE         = (url: string, data?: object, options?: RequestOption) => REQUEST({
+}, listen)
+export const TRACE         = (url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
   ...options,
   method: 'TRACE',
   url,
   data,
-})
-export const CONNECT       = (url: string, data?: object, options?: RequestOption) => REQUEST({
+}, listen)
+export const CONNECT       = (url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
   ...options,
   method: 'CONNECT',
   url,
   data,
-})
+}, listen)
 const prepareRequestData   = async (options: RequestOption) => {
   let data: RequestOption['data'] & any = options.data
   if (
@@ -199,7 +226,6 @@ const prepareRequestData   = async (options: RequestOption) => {
     }
     options.header['content-type'] = 'multipart/form-data; boundary=' + formData.getBoundary()
     data                           = await formData.convertToBuffer()
-    console.log(data, options.header['content-type'])
   }
   return data
 }

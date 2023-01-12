@@ -87,8 +87,8 @@ var selfUpdate = function () {
     });
 };
 exports.getType = helper_1.getObjectType;
-var REQUEST = function (options) { return (new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, authType, authKey, TRIAL_API_HOST, DEV_API_HOST, requestSuccessMiddleware, requestFailMiddleware, API_HOST, token, requestDefaultOptions, env, fail, base_url, absolute, _b;
+var REQUEST = function (options, listen) { return (new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, authType, authKey, TRIAL_API_HOST, DEV_API_HOST, requestSuccessMiddleware, requestFailMiddleware, API_HOST, token, requestDefaultOptions, env, task, fail, base_url, absolute, _b;
     var _c;
     var _d;
     return __generator(this, function (_e) {
@@ -150,27 +150,28 @@ var REQUEST = function (options) { return (new Promise(function (resolve, reject
                 _b.data = _e.sent();
                 _e.label = 2;
             case 2:
-                wx.request(options);
+                task = wx.request(options);
+                listen && listen(task);
                 return [2];
         }
     });
 }); })); };
 exports.REQUEST = REQUEST;
-var OPTIONS = function (url, data, options) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'OPTIONS', url: url, data: data })); };
+var OPTIONS = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'OPTIONS', url: url, data: data }), listen); };
 exports.OPTIONS = OPTIONS;
-var GET = function (url, data, options) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'GET', url: url, data: data })); };
+var GET = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'GET', url: url, data: data }), listen); };
 exports.GET = GET;
-var HEAD = function (url, data, options) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'HEAD', url: url, data: data })); };
+var HEAD = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'HEAD', url: url, data: data }), listen); };
 exports.HEAD = HEAD;
-var POST = function (url, data, options) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'POST', url: url, data: data })); };
+var POST = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'POST', url: url, data: data }), listen); };
 exports.POST = POST;
-var PUT = function (url, data, options) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'PUT', url: url, data: data })); };
+var PUT = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'PUT', url: url, data: data }), listen); };
 exports.PUT = PUT;
-var DELETE = function (url, data, options) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'DELETE', url: url, data: data })); };
+var DELETE = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'DELETE', url: url, data: data }), listen); };
 exports.DELETE = DELETE;
-var TRACE = function (url, data, options) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'TRACE', url: url, data: data })); };
+var TRACE = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'TRACE', url: url, data: data }), listen); };
 exports.TRACE = TRACE;
-var CONNECT = function (url, data, options) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'CONNECT', url: url, data: data })); };
+var CONNECT = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'CONNECT', url: url, data: data }), listen); };
 exports.CONNECT = CONNECT;
 var prepareRequestData = function (options) { return __awaiter(void 0, void 0, void 0, function () {
     var data, formData, name, value;

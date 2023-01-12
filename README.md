@@ -62,4 +62,5 @@ App<IAppOption>({
   },
 })
 ```
-### 基本请求封装 `REQUEST(options: WechatMiniprogram.RequestOption): Promise<WxResponse>`
+### 基本请求封装
+#### `REQUEST(options: WechatMiniprogram.RequestOption): Promise<WxResponse>`
