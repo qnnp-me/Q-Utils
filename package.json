@@ -1,12 +1,13 @@
 {
+  "homepage": "https://github.com/qnnp-me/Q-Utils",
   "name": "@qnnp/q-utils",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "description": "微信小程序实用封装",
   "main": "dist/main.js",
   "types": "types/main.d.ts",
   "scripts": {
-    "prepare": "tesc --build",
+    "prepare": "tsc --build",
     "build": "tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
