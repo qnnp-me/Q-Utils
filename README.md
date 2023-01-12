@@ -21,8 +21,11 @@ npm i @qnnp/q-utils
 import { init } from '@qnnp/q-utils'
 App<IAppOption>({
   onLaunch () {
-    // 初始化工具会自动检查小程序版本更新并获取相关环境信息储存至全局
+    // 初始化工具会自动检查小程序更新并获取相关环境信息储存至全局
     init(this)
+    GET('userinfo')
+      .then(...)
+      .catch(...)
   },
   globalData: {},
   config    : {
@@ -63,4 +66,38 @@ App<IAppOption>({
 })
 ```
 ### 基本请求封装
-#### `REQUEST(options: WechatMiniprogram.RequestOption): Promise<WxResponse>`
+``` typescript
+REQUEST(
+  options: WxRequestOption,
+  listen?: RequestListen
+): Promise<WxResponse>
+```
+
+基本使用方法可以查看 [微信文档：wx.request(options: WxRequestOption)](https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html) 与微信原版不同的是工具提供的 `REQUEST` 可以实现同一个方法传参同时上传多个文件。
+当需要携带文件时仅需在 `options.data` 中增加一个数组字段即可，`options.data` 示例如下：
+``` typescript
+const options: WxRequestOption = {
+  url: 'upload',
+  header : {
+    'content-type': 'multipart/form-data'
+  },
+  data: {
+    field_1: 'value',
+    field_2: 'value',
+    file_1: ['fileName.exc', 'http://tmp/...tmpName.png'],
+    file_2: ['fileName.exc', 'http://tmp/...tmpName.png'],
+  },
+  timeout: 60000 // 上传需要设置超时时长，避免操作超时
+}
+```
+`listen` 为传递 `wx.request` 所产生的 `RequestTask` 对象的 callback
+### 请求方法再封装
+```
+GET( // OPTIONS | HEAD | POST | PUT | DELETE | TRACE | CONNECT
+  url: string,
+  data?: object,
+  options?: RequestOption,
+  listen?: RequestListen
+)
+```
+调用方法和 `REQUEST` 差不多，只是单独拉出 `url` `data` 两个参数方便调用
