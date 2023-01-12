@@ -1,0 +1,27 @@
+{
+  "name": "@qnnp/q-utils",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "微信小程序实用封装",
+  "main": "dist/main.js",
+  "types": "types/main.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "小程序",
+    "微信",
+    "微信小程序",
+    "miniprogram",
+    "wechat",
+    "weixin"
+  ],
+  "author": "qnnp",
+  "license": "MIT",
+  "devDependencies": {
+    "miniprogram-api-typings": "^3.8.1"
+  },
+  "dependencies": {
+    "@zlyboy/wx-formdata": "^1.0.2"
+  }
+}
