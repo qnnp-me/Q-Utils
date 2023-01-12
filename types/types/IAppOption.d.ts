@@ -1,5 +1,8 @@
+/// <reference path="RequestOption.d.ts" />
+/// <reference path="WxResponse.d.ts" />
+/// <reference path="WxError.d.ts" />
 /// <reference types="wx" />
-declare interface IAppOption {
+interface IAppOption {
     appId?: WechatMiniprogram.MiniProgram['appId'];
     version?: WechatMiniprogram.MiniProgram['version'];
     config: {

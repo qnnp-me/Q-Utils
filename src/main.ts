@@ -1,8 +1,10 @@
 /// <reference path="types/IAppOption.ts" />
+/// <reference path="types/RequestOption.ts" />
+/// <reference path="types/RequestListen.ts" />
 /// <reference path="types/WxError.ts" />
 /// <reference path="types/WxRequest.ts" />
 /// <reference path="types/WxResponse.ts" />
-/// <reference path="types/RequestOption.ts" />
+/// <reference path="types/WxRequestTask.ts" />
 import { getObjectType } from './common/helper'
 const Multipart            = require('./common/Multipart.min')
 export let app: IAppOption = getApp()
@@ -46,8 +48,7 @@ export const getType       = getObjectType
 /**
  * 请求封装
  */
-export const REQUEST       = (options: WechatMiniprogram.RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => (
+export const REQUEST       = (options: WxRequest, listen?: RequestListen) => (
   new Promise(async (resolve: (value: WxResponse) => void, reject: (reason: WxError) => void) => {
     // 取值
     let {
@@ -135,73 +136,49 @@ export const REQUEST       = (options: WechatMiniprogram.RequestOption,
     listen && listen(task)
   })
 )
-export const OPTIONS       = (url: string,
-  data?: object,
-  options?: RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
+export const OPTIONS       = (url: string, data?: object, options?: RequestOption, listen?: RequestListen) => REQUEST({
   ...options,
   method: 'OPTIONS',
   url,
   data,
 }, listen)
-export const GET           = (url: string,
-  data?: object,
-  options?: RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
+export const GET           = (url: string, data?: object, options?: RequestOption, listen?: RequestListen) => REQUEST({
   ...options,
   method: 'GET',
   url,
   data,
 }, listen)
-export const HEAD          = (url: string,
-  data?: object,
-  options?: RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
+export const HEAD          = (url: string, data?: object, options?: RequestOption, listen?: RequestListen) => REQUEST({
   ...options,
   method: 'HEAD',
   url,
   data,
 }, listen)
-export const POST          = (url: string,
-  data?: object,
-  options?: RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
+export const POST          = (url: string, data?: object, options?: RequestOption, listen?: RequestListen) => REQUEST({
   ...options,
   method: 'POST',
   url,
   data,
 }, listen)
-export const PUT           = (url: string,
-  data?: object,
-  options?: RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
+export const PUT           = (url: string, data?: object, options?: RequestOption, listen?: RequestListen) => REQUEST({
   ...options,
   method: 'PUT',
   url,
   data,
 }, listen)
-export const DELETE        = (url: string,
-  data?: object,
-  options?: RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
+export const DELETE        = (url: string, data?: object, options?: RequestOption, listen?: RequestListen) => REQUEST({
   ...options,
   method: 'DELETE',
   url,
   data,
 }, listen)
-export const TRACE         = (url: string,
-  data?: object,
-  options?: RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
+export const TRACE         = (url: string, data?: object, options?: RequestOption, listen?: RequestListen) => REQUEST({
   ...options,
   method: 'TRACE',
   url,
   data,
 }, listen)
-export const CONNECT       = (url: string,
-  data?: object,
-  options?: RequestOption,
-  listen?: (task: WechatMiniprogram.RequestTask) => void) => REQUEST({
+export const CONNECT       = (url: string, data?: object, options?: RequestOption, listen?: RequestListen) => REQUEST({
   ...options,
   method: 'CONNECT',
   url,

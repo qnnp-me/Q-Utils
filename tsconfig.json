@@ -4,8 +4,8 @@
     "noImplicitAny": true,
     "module": "CommonJS",
     "target": "es5",
-    "allowJs": true,
-    "checkJs": true,
+    "allowJs": false,
+    "checkJs": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "noImplicitThis": true,
@@ -27,8 +27,13 @@
       "es6"
     ],
     "typeRoots": [
-      "src/types",
       "node_modules/miniprogram-api-typings/types"
     ]
-  }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/common/Multipart.min.js"
+  ]
 }
