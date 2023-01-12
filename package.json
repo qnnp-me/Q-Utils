@@ -1,12 +1,15 @@
 {
   "homepage": "https://github.com/qnnp-me/Q-Utils",
   "name": "@qnnp/q-utils",
-  "version": "0.0.5",
+  "version": "0.0.3",
   "type": "module",
   "description": "微信小程序实用封装",
   "main": "dist/main.js",
   "types": "types/main.d.ts",
   "scripts": {
+    "publish:major": "npm version major && npm publish --access public",
+    "publish:minor": "npm version minor && npm publish --access public",
+    "publish:patch": "npm version patch && npm publish --access public",
     "prepare": "tsc --build",
     "build": "tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1"
