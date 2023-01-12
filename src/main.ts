@@ -3,7 +3,8 @@
 /// <reference path="types/WxRequest.ts" />
 /// <reference path="types/WxResponse.ts" />
 /// <reference path="types/RequestOption.ts" />
-/// <reference path="common/helper.ts" />
+import { getObjectType } from './common/helper'
+const Multipart            = require('./common/Multipart.min')
 export let app: IAppOption = getApp()
 export const init          = (initApp: IAppOption = getApp()) => {
   const {
@@ -46,7 +47,7 @@ export const getType       = getObjectType
  * 请求封装
  */
 export const REQUEST       = (options: WechatMiniprogram.RequestOption) => (
-  new Promise((resolve: (value: WxResponse) => void, reject: (reason: WxError) => void) => {
+  new Promise(async (resolve: (value: WxResponse) => void, reject: (reason: WxError) => void) => {
     // 取值
     let {
           config: {
@@ -127,7 +128,7 @@ export const REQUEST       = (options: WechatMiniprogram.RequestOption) => (
       fail
     }
     // 处理请求的数据，如 multipart/form-data 是需要特殊处理的
-    if (options.data) options.data = prepareRequestData(options)
+    if (options.data) options.data = await prepareRequestData(options)
     wx.request(options)
   })
 )
@@ -179,7 +180,7 @@ export const CONNECT       = (url: string, data?: object, options?: RequestOptio
   url,
   data,
 })
-const prepareRequestData   = (options: RequestOption): WxRequest['data'] => {
+const prepareRequestData   = async (options: RequestOption) => {
   let data: RequestOption['data'] & any = options.data
   if (
     !options.method?.match(/GET|HEAD/)
@@ -187,38 +188,18 @@ const prepareRequestData   = (options: RequestOption): WxRequest['data'] => {
     && typeof data === 'object'
     && getType(data) === 'object'
   ) {
-    const formData = new FormData()
-    for (const label in data) {
-      const value = data[label]
+    const formData = new Multipart({ files: [], fields: [] })
+    for (const name in data) {
+      const value = data[name]
       if (getType(value) === 'array') {
-        formData.appendFile(label, value[1], value[0])
+        formData.file({ name, filename: value[0], filePath: value[1] })
       } else {
-        formData.append(label, value)
+        formData.field({ name, value })
       }
     }
-    data                           = formData.getData().buffer
-    options.header['content-type'] = formData.getData().contentType
+    options.header['content-type'] = 'multipart/form-data; boundary=' + formData.getBoundary()
+    data                           = await formData.convertToBuffer()
+    console.log(data, options.header['content-type'])
   }
   return data
-}
-class FormData {
-  protected FormData: any
-  
-  constructor () {
-    const FormData = require('./../../node_modules/@zlyboy/wx-formdata/formData.js')
-    this.FormData  = new FormData()
-    return this.FormData
-  }
-  
-  getData () {
-    return this.FormData.getData()
-  }
-  
-  appendFile (name: string, path: string, fileName: string) {
-    return this.FormData.appendFile(name, path, fileName)
-  }
-  
-  append (name: string, value: string) {
-    return this.FormData.append(name, value)
-  }
 }

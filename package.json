@@ -21,7 +21,5 @@
   "devDependencies": {
     "miniprogram-api-typings": "^3.8.1"
   },
-  "dependencies": {
-    "@zlyboy/wx-formdata": "^1.0.2"
-  }
+  "dependencies": {}
 }
