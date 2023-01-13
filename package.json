@@ -8,10 +8,9 @@
   "types": "types/main.d.ts",
   "private": false,
   "scripts": {
-    "publish:major": "nrm use npm && npm publish && npm version major",
-    "publish:minor": "nrm use npm && npm publish && npm version minor",
-    "publish:patch": "nrm use npm && npm publish && npm version patch",
-    "prepare": "tsc --build",
+    "publish:major": "npm version major && npm publish",
+    "publish:minor": "npm version minor && npm publish",
+    "publish:patch": "npm version patch && npm publish",
     "build": "sh ./build.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -32,5 +31,8 @@
   "files": [
     "dist//*",
     "types//*"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
 }
