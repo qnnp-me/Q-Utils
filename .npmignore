@@ -1,5 +1,5 @@
 src
 tsconfig.json
 js
-build.sh
+*.sh
 docs
