@@ -9,9 +9,6 @@
     "outDir": "dist",
     "lib": [
       "es6"
-    ],
-    "types": [
-      "miniprogram-api-typings"
     ]
   }
 }

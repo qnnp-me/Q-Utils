@@ -12,9 +12,9 @@ interface IAppOption {
         DEV_API_HOST?: URL;
         TRIAL_API_HOST?: URL;
         requestDefaultOptions?: RequestOption;
-        beforeRequestMiddleware?(options: WxRequest): WxRequest;
-        requestSuccessMiddleware?(res: WxResponse, resolve: (value: WxResponse) => void, reject: (err: WxError) => void): void;
-        requestFailMiddleware?(err: WxError, reject: (err: WxError) => void): void;
+        beforeRequestMiddleware: <T extends RequestOption>(options: T) => T;
+        requestSuccessMiddleware?(res: WxResponse, resolve: (value: WxResponse | WxResponse['data']) => void, reject: (err: WxErr | object) => void): void;
+        requestFailMiddleware?(err: WxErr, reject: (err: WxErr | object) => void): void;
     };
     globalData: {
         userInfo?: WechatMiniprogram.UserInfo;
