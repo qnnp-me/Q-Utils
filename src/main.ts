@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
+ */
+
 /// <reference types="miniprogram-api-typings" />
 /// <reference path="types/IAppOption.ts" />
 /// <reference path="types/RequestOption.ts" />
@@ -12,17 +16,17 @@ export let app: IAppOption = getApp()
 export const init          = (initApp: IAppOption = getApp()) => {
   const {
           miniProgram: { envVersion, appId, version }
-        }                = wx.getAccountInfoSync() // 读取环境信息
+        }                  = wx.getAccountInfoSync() // 读取环境信息
   const menuButtonPosition = wx.getMenuButtonBoundingClientRect()
   const systemInfo         = wx.getSystemInfoSync()
-  app                    = initApp
-  app.appId              = appId
-  app.version            = version
-  app.env                = { version: envVersion }
-  app.systemInfo         = systemInfo
-  app.safeArea           = systemInfo.safeArea
-  app.menuButtonPosition = menuButtonPosition
-  app.update             = selfUpdate
+  app                      = initApp
+  app.appId                = appId
+  app.version              = version
+  app.env                  = { version: envVersion }
+  app.systemInfo           = systemInfo
+  app.safeArea             = systemInfo.safeArea
+  app.menuButtonPosition   = menuButtonPosition
+  app.update               = selfUpdate
   selfUpdate()
 }
 const selfUpdate           = () => {
