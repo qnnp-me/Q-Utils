@@ -1,13 +1,10 @@
 /*
- * !
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
- *
  */
 
 "use strict";
 /*
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
- *
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getObjectType = void 0;
