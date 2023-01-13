@@ -1,7 +1,5 @@
 /*
- * !
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
- *
  */
 
 type getTypeResult =
