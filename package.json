@@ -5,7 +5,7 @@
   "type": "module",
   "description": "微信小程序实用封装",
   "main": "dist/utils.js",
-  "types": "types/index.d.ts",
+  "types": "types/utils.d.ts",
   "private": false,
   "scripts": {
     "publish:major[+.0.0]": "sh publish.sh major",

@@ -2,7 +2,7 @@
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
  */
 
-/// <reference path="../index.ts" />
+/// <reference path="../ref.ts" />
 interface RequestOption<T extends string | WechatMiniprogram.IAnyObject | ArrayBuffer = | string | WechatMiniprogram.IAnyObject | ArrayBuffer> {
   url?: string
   /** 设置请求的 header，header 中不能设置 Referer。

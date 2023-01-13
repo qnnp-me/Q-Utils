@@ -1,4 +1,4 @@
-/// <reference path="../index.d.ts" />
+/// <reference path="../ref.d.ts" />
 /// <reference types="miniprogram-api-typings" />
 type URL = `http${'s' | ''}://${string}/`;
 interface IAppOption {
