@@ -3,4 +3,7 @@
 #
 
 find -E ./src/types -regex '.*\.ts$' | perl -pe 's/(\.\/src\/)(.*)/\/\/\/ <reference path="$2" \/>/g' > src/references.ts
-rm -rf dist types && tsc --build && cp js/Multipart.min.js dist/utils && rm -rf dist/types types/utils
+rm -rf dist types
+tsc --build
+cp js/Multipart.min.js dist/utils
+rm -rf dist/types types/utils
