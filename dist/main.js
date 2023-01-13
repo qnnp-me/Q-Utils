@@ -3,9 +3,6 @@
  */
 
 "use strict";
-/*
- * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
- */
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -110,23 +107,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, '__esModule', { value: true })
 exports.CONNECT = exports.TRACE = exports.DELETE = exports.PUT = exports.POST = exports.HEAD = exports.GET = exports.OPTIONS = exports.REQUEST = exports.getType = exports.init = exports.app = void 0
-/// <reference types="miniprogram-api-typings" />
-/// <reference path="types/IAppOption.ts" />
-/// <reference path="types/RequestOption.ts" />
-/// <reference path="types/RequestListen.ts" />
-/// <reference path="types/WxError.ts" />
-/// <reference path="types/WxRequest.ts" />
-/// <reference path="types/WxResponse.ts" />
-/// <reference path="types/WxRequestTask.ts" />
-var helper_1   = require('./common/helper')
-var Multipart  = require('./common/Multipart.min')
-exports.app    = getApp()
-var init       = function (initApp) {
+var helper_1    = require('./common/helper')
+var Multipart   = require('./common/Multipart.min')
+exports.app     = getApp()
+var init        = function (initApp) {
     if (initApp === void 0) { initApp = getApp() }
     var _a                         = wx.getAccountInfoSync().miniProgram,
         envVersion                 = _a.envVersion,
         appId                      = _a.appId,
-        version                    = _a.version // 读取环境信息
+        version                    = _a.version
     var menuButtonPosition         = wx.getMenuButtonBoundingClientRect()
     var systemInfo                 = wx.getSystemInfoSync()
     exports.app                    = initApp
@@ -139,8 +128,8 @@ var init       = function (initApp) {
     exports.app.update             = selfUpdate
     selfUpdate()
 }
-exports.init   = init
-var selfUpdate = function () {
+exports.init    = init
+var selfUpdate  = function () {
     var updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function (res) {
         console.log('Check Update: '.concat(res.hasUpdate ? 'New Update' : 'No Update'))
@@ -157,13 +146,9 @@ var selfUpdate = function () {
         });
     });
     updateManager.onUpdateFailed(function () {
-        // 新版本下载失败
     });
 };
-exports.getType = helper_1.getObjectType;
-/**
- * 请求封装
- */
+exports.getType        = helper_1.getObjectType;
 var REQUEST     = function (options, listen) {
     return (
       new Promise(function (resolve, reject) {
@@ -190,7 +175,6 @@ var REQUEST     = function (options, listen) {
                   switch (_e.label) {
                       case 0:
                           _a = exports.app.config, authType = _a.authType, authKey = _a.authKey, TRIAL_API_HOST = _a.TRIAL_API_HOST, DEV_API_HOST = _a.DEV_API_HOST, requestSuccessMiddleware = _a.requestSuccessMiddleware, requestFailMiddleware = _a.requestFailMiddleware, API_HOST = _a.API_HOST, token = _a.token, requestDefaultOptions = _a.requestDefaultOptions, env = exports.app.env
-                          // 加载默认请求配置
                           options = __assign(__assign({
                               method     : 'GET',
                               dataType   : 'json',
@@ -198,19 +182,16 @@ var REQUEST     = function (options, listen) {
                               enableCache: false,
                               header     : {}
                           }, requestDefaultOptions), options)
-                          // 根据不同运行环境使用不同服务器
                           if ((
                                 env === null || env === void 0 ? void 0 : env.version
-                              ) === 'develop' && DEV_API_HOST) { // 开发版配置
+                              ) === 'develop' && DEV_API_HOST) {
                               API_HOST = DEV_API_HOST
                           } else if ((
                                        env === null || env === void 0 ? void 0 : env.version
-                                     ) === 'trial' && TRIAL_API_HOST) { // 体验版配置
+                                     ) === 'trial' && TRIAL_API_HOST) {
                               API_HOST = TRIAL_API_HOST
                           }
-                          // 获取 Token ，不管后端如何实现类似值全统称 Token
                           token = token || wx.getStorageSync('token')
-                          // 将 Token 储存到 app
                           if (!exports.app.config.token) {
                               exports.app.config.token = token
                           }
@@ -239,11 +220,10 @@ var REQUEST     = function (options, listen) {
                                   reject(err)
                               }
                           }
-                          // 已配置 API_HOST 情况下 相对和绝对路径 url 处理
                           if (!options.url.match(/^http/)) {
                               if (!API_HOST) {
                                   fail({ errno: 0, errMsg: 'API_HOST 未设置' })
-                                  return [2 /*return*/]
+                                  return [2]
                               }
                               base_url = API_HOST
                               absolute = options.url.match(/^\//)
@@ -263,23 +243,19 @@ var REQUEST     = function (options, listen) {
                                   }
                               }, fail: fail
                           })
-                          if (!options.data) return [3 /*break*/, 2]
+                          if (!options.data) return [3, 2]
                           _b = options
-                          return [
-                              4 /*yield*/, prepareRequestData(options)
-                              // 请求前中间件
-                          ]
+                          return [4, prepareRequestData(options)]
                       case 1:
                           _b.data  = _e.sent()
                           _e.label = 2
                       case 2:
-                          // 请求前中间件
                           if (exports.app.config.beforeRequestMiddleware) {
                               options = exports.app.config.beforeRequestMiddleware(options)
                           }
                           task = wx.request(options)
                           listen && listen(task)
-                          return [2 /*return*/]
+                          return [2]
                   }
               })
           });
@@ -326,7 +302,7 @@ var prepareRequestData = function (options) { return __awaiter(void 0, void 0, v
                     0, exports.getType
                   )(data) === 'object'
                 )) {
-                    return [3 /*break*/, 2]
+                    return [3, 2]
                 }
                 formData = new Multipart({ files: [], fields: [] })
                 for (name in data) {
@@ -340,12 +316,12 @@ var prepareRequestData = function (options) { return __awaiter(void 0, void 0, v
                     }
                 }
                 options.header['content-type'] = 'multipart/form-data; boundary=' + formData.getBoundary()
-                return [4 /*yield*/, formData.convertToBuffer()]
+                return [4, formData.convertToBuffer()]
             case 1:
                 data     = _c.sent()
                 _c.label = 2
             case 2:
-                return [2 /*return*/, data];
+                return [2, data];
         }
     });
 }); };

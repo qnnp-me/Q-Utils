@@ -19,7 +19,7 @@
     "sourceMap": false,
     "disableReferencedProjectLoad": true,
     "disableSourceOfProjectReferenceRedirect": true,
-    "removeComments": false,
+    "removeComments": true,
     "declaration": true,
     "declarationDir": "types",
     "outDir": "dist",
