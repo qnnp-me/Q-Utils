@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
+ Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
  */
 
 import { getType } from './helpers'
@@ -7,8 +7,8 @@ import { app }     from './App'
 /**
  * 请求封装
  */
-export const REQUEST     = (options: WxRequest, listen?: RequestListen) => (
-  new Promise(async (resolve: (value: WxResponse) => void, reject: (reason: WxError) => void) => {
+export const REQUEST     = (options: WxRequestOption, listen?: RequestListen) => (
+  new Promise(async (resolve: <T>(value: T) => void, reject: (reason: WxErr) => void) => {
     // 取值
     let {
           config: {
@@ -56,7 +56,7 @@ export const REQUEST     = (options: WxRequest, listen?: RequestListen) => (
         ...options.header,
       }
     }
-    const fail = (err: WxError) => {
+    const fail = (err: WxErr) => {
       if (requestFailMiddleware && requestFailMiddleware.length === 2) {
         requestFailMiddleware(err, reject)
       } else {

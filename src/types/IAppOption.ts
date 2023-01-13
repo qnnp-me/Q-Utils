@@ -1,8 +1,9 @@
 /*
- * Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
+ Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
  */
 
 /// <reference path="../ref.ts" />
+
 type  URL = `http${'s' | ''}://${string}/`
 interface IAppOption {
   appId?: WechatMiniprogram.MiniProgram['appId']
@@ -19,16 +20,17 @@ interface IAppOption {
     TRIAL_API_HOST?: URL
     /*默认请求选项*/
     requestDefaultOptions?: RequestOption
-    beforeRequestMiddleware? (options: WxRequest): WxRequest
+    beforeRequestMiddleware: <T extends RequestOption>(options: T) => T
     /*请求成功中间件，必须执行 resolve 或者 reject*/
-    requestSuccessMiddleware? (res: WxResponse,
-      resolve: (value: WxResponse) => void,
-      reject: (err: WxError) => void
+    requestSuccessMiddleware? (
+      res: WxResponse,
+      resolve: (value: WxResponse | WxResponse['data']) => void,
+      reject: (err: WxErr | object) => void
     ): void
     /*请求失败中间件，必须执行 reject*/
     requestFailMiddleware? (
-      err: WxError,
-      reject: (err: WxError) => void
+      err: WxErr,
+      reject: (err: WxErr | object) => void
     ): void
   },
   globalData: {

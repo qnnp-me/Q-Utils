@@ -11,7 +11,7 @@
     "publish:major[+.0.0]": "sh publish.sh major",
     "publish:minor[0.+.0]": "sh publish.sh minor",
     "publish:patch[0.0.+]": "sh publish.sh patch",
-    "build": "sh build.sh",
+    "build": "php build.php",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

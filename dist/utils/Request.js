@@ -1,6 +1,6 @@
 "use strict";
 /*
- * Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
+ Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
  */
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {

@@ -1,5 +1,6 @@
 src
-tsconfig.json
 js
-*.sh
 docs
+tsconfig.json
+*.sh
+*.php
