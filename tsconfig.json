@@ -1,30 +1,17 @@
 {
   "compilerOptions": {
-    "strictNullChecks": true,
-    "noImplicitAny": true,
     "module": "CommonJS",
     "target": "es5",
     "allowJs": true,
-    "checkJs": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "noImplicitThis": true,
-    "noImplicitReturns": true,
-    "alwaysStrict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": true,
-    "strictPropertyInitialization": true,
-    "sourceMap": false,
-    "disableReferencedProjectLoad": true,
-    "disableSourceOfProjectReferenceRedirect": true,
     "removeComments": true,
     "declaration": true,
     "declarationDir": "types",
     "outDir": "dist",
     "lib": [
       "es6"
+    ],
+    "types": [
+      "miniprogram-api-typings"
     ]
   }
 }

@@ -11,7 +11,7 @@
     "publish:minor": "npm version minor && npm publish --access public",
     "publish:patch": "npm version patch && npm publish --access public",
     "prepare": "tsc --build",
-    "build": "tsc --build && cp js/Multipart.min.js dist/common",
+    "build": "sh build.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -29,7 +29,7 @@
     "miniprogram-api-typings": "^3.8.1"
   },
   "files": [
-    "dist/**/*",
-    "types/**/*"
+    "dist//*",
+    "types//*"
   ]
 }
