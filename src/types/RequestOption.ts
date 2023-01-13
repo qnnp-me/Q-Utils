@@ -1,5 +1,7 @@
 /*
+ * !
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
+ *
  */
 
 interface RequestOption<T extends string | WechatMiniprogram.IAnyObject | ArrayBuffer = | string | WechatMiniprogram.IAnyObject | ArrayBuffer> {
