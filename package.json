@@ -8,9 +8,9 @@
   "types": "types/main.d.ts",
   "private": false,
   "scripts": {
-    "publish:major": "npm version major && npm publish",
-    "publish:minor": "npm version minor && npm publish",
-    "publish:patch": "npm version patch && npm publish",
+    "publish:major[+.0.0]": "npm version major && npm publish",
+    "publish:minor[0.+.0]": "npm version minor && npm publish",
+    "publish:patch[0.0.+]": "npm version patch && npm publish",
     "build": "sh ./build.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
