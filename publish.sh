@@ -22,5 +22,3 @@ select yn in "Yes" "No"; do
           exit;;
     esac
 done
-
-
