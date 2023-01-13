@@ -2,6 +2,7 @@
 # Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
 #
 
+git add .
 git commit -a -m "publish version $1"
 git push origin dev --tags
 git checkout main
