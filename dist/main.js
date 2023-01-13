@@ -132,27 +132,30 @@ var REQUEST = function (options, listen) { return (new Promise(function (resolve
                     }
                     options.url = base_url + options.url;
                 }
-                options = __assign(__assign({}, options), { success: function (res) {
+                options = __assign(__assign({}, options), {
+                    success: function (res) {
                         if (requestSuccessMiddleware && requestSuccessMiddleware.length === 3) {
-                            requestSuccessMiddleware(res, resolve, fail);
+                            requestSuccessMiddleware(res, resolve, fail)
+                        } else if (res.statusCode < 400) {
+                            resolve(res)
+                        } else {
+                            fail({ errno: res.statusCode, errMsg: res.errMsg })
                         }
-                        else if (res.statusCode < 400) {
-                            resolve(res);
-                        }
-                        else {
-                            fail({ errno: res.statusCode, errMsg: res.errMsg });
-                        }
-                    }, fail: fail });
-                if (!options.data) return [3, 2];
-                _b = options;
-                return [4, prepareRequestData(options)];
+                    }, fail: fail
+                })
+                if (!options.data) return [3, 2]
+                _b = options
+                return [4, prepareRequestData(options)]
             case 1:
-                _b.data = _e.sent();
-                _e.label = 2;
+                _b.data  = _e.sent()
+                _e.label = 2
             case 2:
-                task = wx.request(options);
-                listen && listen(task);
-                return [2];
+                if (exports.app.config.beforeRequestMiddleware) {
+                    options = exports.app.config.beforeRequestMiddleware(options)
+                }
+                task = wx.request(options)
+                listen && listen(task)
+                return [2]
         }
     });
 }); })); };

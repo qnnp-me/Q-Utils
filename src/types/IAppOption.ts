@@ -1,6 +1,8 @@
 /// <reference path="RequestOption.ts" />
+/// <reference path="WxRequest.ts" />
 /// <reference path="WxResponse.ts" />
 /// <reference path="WxError.ts" />
+type  URL = `http${'s' | ''}://${string}/`
 interface IAppOption {
   appId?: WechatMiniprogram.MiniProgram['appId']
   version?: WechatMiniprogram.MiniProgram['version']
@@ -9,11 +11,11 @@ interface IAppOption {
     authType?: 'cookie' | 'header'
     authKey?: string | 'token'
     /*正式环境 API 服务器地址*/
-    API_HOST: `https://${string}/`
+    API_HOST: URL
     /*开发环境 API 服务器地址*/
-    DEV_API_HOST?: `https://${string}/`
+    DEV_API_HOST?: URL
     /*体验环境 API 服务器地址*/
-    TRIAL_API_HOST?: `https://${string}/`
+    TRIAL_API_HOST?: URL
     /*默认请求选项*/
     requestDefaultOptions?: RequestOption
     beforeRequestMiddleware? (options: WxRequest): WxRequest
