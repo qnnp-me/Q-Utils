@@ -2,5 +2,5 @@
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
  */
 
-/// <reference path="../references.ts" />
+/// <reference path="../index.ts" />
 interface WxResponse extends WechatMiniprogram.RequestSuccessCallbackResult {}
