@@ -1,8 +1,4 @@
-/*
- * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
- */
-
-/// <reference path="references.d.ts" />
+/// <reference path="index.d.ts" />
 /// <reference types="miniprogram-api-typings" />
 declare const _default: {
   getType: (target: any) => string;
@@ -41,5 +37,5 @@ declare const _default: {
     listen?: RequestListen) => Promise<WxResponse>;
   app: IAppOption;
   init: (initApp?: IAppOption) => void;
-};
+}
 export = _default;

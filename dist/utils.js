@@ -1,8 +1,7 @@
+'use strict'
 /*
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
  */
-
-'use strict'
 var __assign   = (
                    this && this.__assign
                  ) || function () {
@@ -19,7 +18,8 @@ var __assign   = (
   }
   return __assign.apply(this, arguments)
 }
+/// <reference path="index.ts" />
 var App        = require('./utils/App')
 var Request    = require('./utils/Request')
 var helpers    = require('./utils/helpers')
-module.exports = __assign(__assign(__assign({}, App), Request), helpers);
+module.exports = __assign(__assign(__assign({}, App), Request), helpers)

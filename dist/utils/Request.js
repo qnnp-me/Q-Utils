@@ -1,8 +1,7 @@
+'use strict'
 /*
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
  */
-
-'use strict'
 var __assign    = (
                     this && this.__assign
                   ) || function () {
@@ -131,6 +130,9 @@ Object.defineProperty(exports, '__esModule', { value: true })
 exports.CONNECT        = exports.TRACE = exports.DELETE = exports.PUT = exports.POST = exports.HEAD = exports.GET = exports.OPTIONS = exports.REQUEST = void 0
 var helpers_1          = require('./helpers')
 var App_1              = require('./App')
+/**
+ * 请求封装
+ */
 var REQUEST            = function (options, listen) {
   return (
     new Promise(function (resolve, reject) {
@@ -157,6 +159,7 @@ var REQUEST            = function (options, listen) {
           switch (_e.label) {
             case 0:
               _a = App_1.app.config, authType = _a.authType, authKey = _a.authKey, TRIAL_API_HOST = _a.TRIAL_API_HOST, DEV_API_HOST = _a.DEV_API_HOST, requestSuccessMiddleware = _a.requestSuccessMiddleware, requestFailMiddleware = _a.requestFailMiddleware, API_HOST = _a.API_HOST, token = _a.token, requestDefaultOptions = _a.requestDefaultOptions, env = App_1.app.env
+              // 加载默认请求配置
               options = __assign(__assign({
                 method     : 'GET',
                 dataType   : 'json',
@@ -164,16 +167,19 @@ var REQUEST            = function (options, listen) {
                 enableCache: false,
                 header     : {}
               }, requestDefaultOptions), options)
+              // 根据不同运行环境使用不同服务器
               if ((
                     env === null || env === void 0 ? void 0 : env.version
-                  ) === 'develop' && DEV_API_HOST) {
+                  ) === 'develop' && DEV_API_HOST) { // 开发版配置
                 API_HOST = DEV_API_HOST
               } else if ((
                            env === null || env === void 0 ? void 0 : env.version
-                         ) === 'trial' && TRIAL_API_HOST) {
+                         ) === 'trial' && TRIAL_API_HOST) { // 体验版配置
                 API_HOST = TRIAL_API_HOST
               }
+              // 获取 Token ，不管后端如何实现类似值全统称 Token
               token = token || wx.getStorageSync('token')
+              // 将 Token 储存到 app
               if (!App_1.app.config.token) {
                 App_1.app.config.token = token
               }
@@ -202,10 +208,11 @@ var REQUEST            = function (options, listen) {
                   reject(err)
                 }
               }
+              // 已配置 API_HOST 情况下 相对和绝对路径 url 处理
               if (!options.url.match(/^http/)) {
                 if (!API_HOST) {
                   fail({ errno: 0, errMsg: 'API_HOST 未设置' })
-                  return [2]
+                  return [2 /*return*/]
                 }
                 base_url = API_HOST
                 absolute = options.url.match(/^\//)
@@ -225,19 +232,23 @@ var REQUEST            = function (options, listen) {
                   }
                 }, fail: fail
               })
-              if (!options.data) return [3, 2]
+              if (!options.data) return [3 /*break*/, 2]
               _b = options
-              return [4, prepareRequestData(options)]
+              return [
+                4 /*yield*/, prepareRequestData(options)
+                // 请求前中间件
+              ]
             case 1:
               _b.data  = _e.sent()
               _e.label = 2
             case 2:
+              // 请求前中间件
               if (App_1.app.config.beforeRequestMiddleware) {
                 options = App_1.app.config.beforeRequestMiddleware(options)
               }
               task = wx.request(options)
               listen && listen(task)
-              return [2]
+              return [2 /*return*/]
           }
         })
       })
@@ -318,7 +329,7 @@ var prepareRequestData = function (options) {
               0, helpers_1.getType
             )(data) === 'object'
           )) {
-            return [3, 2]
+            return [3 /*break*/, 2]
           }
           formData = new Multipart({ files: [], fields: [] })
           for (name in data) {
@@ -331,14 +342,14 @@ var prepareRequestData = function (options) {
               formData.field({ name: name, value: value })
             }
           }
-          options.header['content-type'] = 'multipart/form-data; boundary=' + formData.getBoundary();
-          return [4, formData.convertToBuffer()];
+          options.header['content-type'] = 'multipart/form-data; boundary=' + formData.getBoundary()
+          return [4 /*yield*/, formData.convertToBuffer()]
         case 1:
-          data     = _c.sent();
-          _c.label = 2;
+          data     = _c.sent()
+          _c.label = 2
         case 2:
-          return [2, data];
+          return [2 /*return*/, data]
       }
-    });
-  });
-};
+    })
+  })
+}
