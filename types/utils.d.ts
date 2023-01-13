@@ -1,4 +1,4 @@
-/// <reference path="index.d.ts" />
+/// <reference path="ref.d.ts" />
 /// <reference types="miniprogram-api-typings" />
 declare const _default: {
     getType: (target: any) => string;

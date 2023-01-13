@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-/// <reference path="index.ts" />
+/// <reference path="ref.ts" />
 var App = require("./utils/App");
 var Request = require("./utils/Request");
 var helpers = require("./utils/helpers");
