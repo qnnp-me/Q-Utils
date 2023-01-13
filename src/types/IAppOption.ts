@@ -16,6 +16,7 @@ interface IAppOption {
     TRIAL_API_HOST?: `https://${string}/`
     /*默认请求选项*/
     requestDefaultOptions?: RequestOption
+    beforeRequestMiddleware? (options: WxRequest): WxRequest
     /*请求成功中间件，必须执行 resolve 或者 reject*/
     requestSuccessMiddleware? (res: WxResponse,
       resolve: (value: WxResponse) => void,

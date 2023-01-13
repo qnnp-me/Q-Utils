@@ -132,6 +132,8 @@ export const REQUEST       = (options: WxRequest, listen?: RequestListen) => (
     }
     // 处理请求的数据，如 multipart/form-data 是需要特殊处理的
     if (options.data) options.data = await prepareRequestData(options)
+    // 请求前中间件
+    if (app.config.beforeRequestMiddleware) options = app.config.beforeRequestMiddleware(options)
     task = wx.request(options)
     listen && listen(task)
   })
