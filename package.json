@@ -28,10 +28,6 @@
   "devDependencies": {
     "miniprogram-api-typings": "^3.8.1"
   },
-  "files": [
-    "dist//*",
-    "types//*"
-  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   }
