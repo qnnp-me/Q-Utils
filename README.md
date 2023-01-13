@@ -100,4 +100,4 @@ GET( // OPTIONS | HEAD | POST | PUT | DELETE | TRACE | CONNECT
   listen?: RequestListen
 )
 ```
-调用方法和 `REQUEST` 差不多，只是单独拉出 `url` `data` 两个参数方便调用
+调用方法和 `REQUEST` 差不多，只是单独拉出 `url` `data` 两个参数方便调用。
