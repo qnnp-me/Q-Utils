@@ -4,3 +4,4 @@ docs
 tsconfig.json
 *.sh
 *.php
+.idea
