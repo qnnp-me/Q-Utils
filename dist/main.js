@@ -130,7 +130,7 @@ var REQUEST = function (options, listen) { return (new Promise(function (resolve
                     if (absolute) {
                         base_url = API_HOST.split('/').slice(0, 3).join('/');
                     }
-                    options.url = base_url + options.url;
+                    options.url = base_url + options.url
                 }
                 options = __assign(__assign({}, options), {
                     success: function (res) {
@@ -155,7 +155,7 @@ var REQUEST = function (options, listen) { return (new Promise(function (resolve
                 }
                 task = wx.request(options)
                 listen && listen(task)
-                return [2]
+                return [2];
         }
     });
 }); })); };
