@@ -41,5 +41,5 @@ declare const _default: {
       listen?: RequestListen) => Promise<WxResponse>;
     app: IAppOption;
     init: (initApp?: IAppOption) => void;
-}
+};
 export = _default;
