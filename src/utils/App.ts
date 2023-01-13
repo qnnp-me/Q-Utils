@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
+ * Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
  */
 
 export let app: IAppOption = getApp()

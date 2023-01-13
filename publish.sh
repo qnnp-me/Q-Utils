@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2023. qnnp <qnnp@qnnp.me>
+# Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
 #
 
 git commit -a -m "publish version $1"
