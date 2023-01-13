@@ -4,8 +4,8 @@
   "version": "0.1.4",
   "type": "module",
   "description": "微信小程序实用封装",
-  "main": "dist/main.js",
-  "types": "types/main.d.ts",
+  "main": "dist/utils.js",
+  "types": "types/index.d.ts",
   "private": false,
   "scripts": {
     "publish:major[+.0.0]": "sh publish.sh major",

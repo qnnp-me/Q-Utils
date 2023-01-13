@@ -2,7 +2,7 @@
  * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
  */
 
-/// <reference path="../references.ts" />
+/// <reference path="../index.ts" />
 type  URL = `http${'s' | ''}://${string}/`
 interface IAppOption {
   appId?: WechatMiniprogram.MiniProgram['appId']
