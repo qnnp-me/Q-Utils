@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
- */
-
 /// <reference path="RequestOption.d.ts" />
 /// <reference path="WxRequest.d.ts" />
 /// <reference path="WxResponse.d.ts" />

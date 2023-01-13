@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2023. qnnp <qnnp@qnnp.me>
- */
-
 /// <reference path="types/IAppOption.d.ts" />
 /// <reference path="types/RequestOption.d.ts" />
 /// <reference path="types/RequestListen.d.ts" />
