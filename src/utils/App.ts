@@ -12,13 +12,20 @@ export const init = (initApp: IAppOption = getApp()) => {
   const systemInfo = wx.getSystemInfoSync()
   // @ts-ignore
   _this.app = initApp
-  app.appId = appId
-  app.version = version
-  app.env = {version: envVersion}
-  app.systemInfo = systemInfo
-  app.safeArea = systemInfo.safeArea
-  app.menuButtonPosition = menuButtonPosition
-  app.update = selfUpdate
+  // @ts-ignore
+  _this.app.appId = appId
+  // @ts-ignore
+  _this.app.version = version
+  // @ts-ignore
+  _this.app.env = {version: envVersion}
+  // @ts-ignore
+  _this.app.systemInfo = systemInfo
+  // @ts-ignore
+  _this.app.safeArea = systemInfo.safeArea
+  // @ts-ignore
+  _this.app.menuButtonPosition = menuButtonPosition
+  // @ts-ignore
+  _this.app.update = selfUpdate
   selfUpdate()
 }
 const selfUpdate = () => {
