@@ -24,7 +24,7 @@ declare interface IAppOption {
     beforeRequestMiddleware?: <T extends RequestOption>(options: T) => T
     /*请求成功中间件，必须执行 resolve 或者 reject*/
     requestSuccessMiddleware?:
-      <RES extends WxResponse<RES>, R extends (data: any) => void, E extends (err: any) => void>
+      <RES extends WxResponse<any>, R extends (data: any) => void, E extends (err: any) => void>
       (
         res: RES,
         resolve: R,
