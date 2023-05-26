@@ -1,7 +1,7 @@
 /// <reference path="ref.d.ts" />
 declare const _default: {
     getType: (target: any) => string;
-    REQUEST: (options: WxRequestOption, listen?: RequestListen) => Promise<unknown>;
+    REQUEST: (options: Partial<WxRequestOption>, listen?: RequestListen) => Promise<WxResponse>;
     OPTIONS: MethodRequest;
     GET: MethodRequest;
     HEAD: MethodRequest;
