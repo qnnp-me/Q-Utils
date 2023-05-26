@@ -86,7 +86,7 @@ var REQUEST = function (options, listen) {
                 requestSuccessMiddleware(res, resolve, fail);
             }
             else if (res.statusCode < 400) {
-                resolve(res);
+                resolve(res.data);
             }
             else {
                 fail({ errno: res.statusCode, errMsg: res.errMsg });
