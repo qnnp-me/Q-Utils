@@ -4,4 +4,6 @@
 /// <reference types="miniprogram-api-typings" />
 type WxRequestOption = WechatMiniprogram.RequestOption;
 type WxErr = WechatMiniprogram.Err;
-type WxResponse = WechatMiniprogram.RequestSuccessCallbackResult;
+declare interface WxResponse<T> extends WechatMiniprogram.RequestSuccessCallbackResult {
+    data: any | T;
+}
