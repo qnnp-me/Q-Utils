@@ -40,7 +40,7 @@ export const REQUEST = (options: Partial<WxRequestOption>, listen?: RequestListe
         reject(err)
       }
     }
-    const success = (res: WxResponse) => {
+    const success = (res: WxResponse<any>) => {
       if (requestSuccessMiddleware && requestSuccessMiddleware.length === 3) {
         requestSuccessMiddleware(res, resolve, fail)
       } else if (res.statusCode < 400) {
