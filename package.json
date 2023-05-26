@@ -1,7 +1,7 @@
 {
   "homepage": "https://github.com/qnnp-me/Q-Utils",
   "name": "@qnnp/q-utils",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "type": "module",
   "description": "微信小程序实用封装",
   "main": "dist/utils.js",
