@@ -24,14 +24,16 @@ interface IAppOption {
     beforeRequestMiddleware?: <T extends RequestOption>(options: T) => T
     /*请求成功中间件，必须执行 resolve 或者 reject*/
     requestSuccessMiddleware?:
-      <RES extends WxResponse, R, E>
+      <RES extends WxResponse, R extends (data: any) => void, E extends (err: any) => void>
       (
         res: RES,
         resolve: R,
         reject: E
       ) => void
     /*请求失败中间件，必须执行 reject*/
-    requestFailMiddleware?: <ER extends WxErr, E extends RequestFail> (err: ER, reject: E) => void
+    requestFailMiddleware?:
+      <ER extends WxErr, E extends (err: any) => void>
+      (err: ER, reject: E) => void
   },
   globalData: {
     userInfo?: WechatMiniprogram.UserInfo
