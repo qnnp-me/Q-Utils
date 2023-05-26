@@ -13,8 +13,8 @@ interface IAppOption {
         TRIAL_API_HOST?: URL;
         requestDefaultOptions?: RequestOption;
         beforeRequestMiddleware?: <T extends RequestOption>(options: T) => T;
-        requestSuccessMiddleware?: <RES extends WxResponse, R, E>(res: RES, resolve: R, reject: E) => void;
-        requestFailMiddleware?: <ER extends WxErr, E extends RequestFail>(err: ER, reject: E) => void;
+        requestSuccessMiddleware?: <RES extends WxResponse, R extends (data: any) => void, E extends (err: any) => void>(res: RES, resolve: R, reject: E) => void;
+        requestFailMiddleware?: <ER extends WxErr, E extends (err: any) => void>(err: ER, reject: E) => void;
     };
     globalData: {
         userInfo?: WechatMiniprogram.UserInfo;
