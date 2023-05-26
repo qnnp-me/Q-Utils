@@ -5,3 +5,4 @@ tsconfig.json
 *.sh
 *.php
 .idea
+/pnpm-lock.yaml
