@@ -8,25 +8,18 @@ exports.app = getApp();
 var _this = this;
 var init = function (initApp) {
     if (initApp === void 0) { initApp = getApp(); }
+    // @ts-ignore
+    _this.m.exports.app = initApp;
     var _a = wx.getAccountInfoSync().miniProgram, envVersion = _a.envVersion, appId = _a.appId, version = _a.version; // 读取环境信息
     var menuButtonPosition = wx.getMenuButtonBoundingClientRect();
     var systemInfo = wx.getSystemInfoSync();
-    // @ts-ignore
-    _this.app = initApp;
-    // @ts-ignore
-    _this.app.appId = appId;
-    // @ts-ignore
-    _this.app.version = version;
-    // @ts-ignore
-    _this.app.env = { version: envVersion };
-    // @ts-ignore
-    _this.app.systemInfo = systemInfo;
-    // @ts-ignore
-    _this.app.safeArea = systemInfo.safeArea;
-    // @ts-ignore
-    _this.app.menuButtonPosition = menuButtonPosition;
-    // @ts-ignore
-    _this.app.update = selfUpdate;
+    initApp.appId = appId;
+    initApp.version = version;
+    initApp.env = { version: envVersion };
+    initApp.systemInfo = systemInfo;
+    initApp.safeArea = systemInfo.safeArea;
+    initApp.menuButtonPosition = menuButtonPosition;
+    initApp.update = selfUpdate;
     selfUpdate();
 };
 exports.init = init;
