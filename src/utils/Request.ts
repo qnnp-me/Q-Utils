@@ -9,7 +9,7 @@ const Multipart = require('Multipart.min')
 /**
  * 默认请求封装
  */
-export const REQUEST = (options: Partial<WxRequestOption>, listen?: RequestListen): Promise<WxResponse> => {
+export const REQUEST = (options: Partial<WxRequestOption>, listen?: RequestListen): Promise<RequestResult> => {
   let task: WechatMiniprogram.RequestTask
   options = prepareRequestOptions(options)
   return new Promise((resolve, reject) => {

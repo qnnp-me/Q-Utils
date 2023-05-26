@@ -1,16 +1,16 @@
 /// <reference path="../ref.d.ts" />
 /// <reference types="miniprogram-api-typings" />
-type URL = `http${'s' | ''}://${string}/`;
-interface IAppOption {
+type API_URL = `http${'s' | ''}://${string}/`;
+declare interface IAppOption {
     appId?: WechatMiniprogram.MiniProgram['appId'];
     version?: WechatMiniprogram.MiniProgram['version'];
     config?: {
         token?: string;
         authType?: 'cookie' | 'header';
         authKey?: string | 'token';
-        API_HOST: URL;
-        DEV_API_HOST?: URL;
-        TRIAL_API_HOST?: URL;
+        API_HOST: API_URL;
+        DEV_API_HOST?: API_URL;
+        TRIAL_API_HOST?: API_URL;
         requestDefaultOptions?: RequestOption;
         beforeRequestMiddleware?: <T extends RequestOption>(options: T) => T;
         requestSuccessMiddleware?: <RES extends WxResponse, R extends (data: any) => void, E extends (err: any) => void>(res: RES, resolve: R, reject: E) => void;
