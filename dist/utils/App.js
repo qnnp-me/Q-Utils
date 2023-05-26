@@ -13,13 +13,20 @@ var init = function (initApp) {
     var systemInfo = wx.getSystemInfoSync();
     // @ts-ignore
     _this.app = initApp;
-    exports.app.appId = appId;
-    exports.app.version = version;
-    exports.app.env = { version: envVersion };
-    exports.app.systemInfo = systemInfo;
-    exports.app.safeArea = systemInfo.safeArea;
-    exports.app.menuButtonPosition = menuButtonPosition;
-    exports.app.update = selfUpdate;
+    // @ts-ignore
+    _this.app.appId = appId;
+    // @ts-ignore
+    _this.app.version = version;
+    // @ts-ignore
+    _this.app.env = { version: envVersion };
+    // @ts-ignore
+    _this.app.systemInfo = systemInfo;
+    // @ts-ignore
+    _this.app.safeArea = systemInfo.safeArea;
+    // @ts-ignore
+    _this.app.menuButtonPosition = menuButtonPosition;
+    // @ts-ignore
+    _this.app.update = selfUpdate;
     selfUpdate();
 };
 exports.init = init;
