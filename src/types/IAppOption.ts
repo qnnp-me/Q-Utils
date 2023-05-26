@@ -4,9 +4,9 @@
 
 /// <reference path="../ref.ts" />
 
-type  URL = `http${'s' | ''}://${string}/`
+type  API_URL = `http${'s' | ''}://${string}/`
 
-interface IAppOption {
+declare interface IAppOption {
   appId?: WechatMiniprogram.MiniProgram['appId']
   version?: WechatMiniprogram.MiniProgram['version']
   config?: {
@@ -14,11 +14,11 @@ interface IAppOption {
     authType?: 'cookie' | 'header'
     authKey?: string | 'token'
     /*正式环境 API 服务器地址*/
-    API_HOST: URL
+    API_HOST: API_URL
     /*开发环境 API 服务器地址*/
-    DEV_API_HOST?: URL
+    DEV_API_HOST?: API_URL
     /*体验环境 API 服务器地址*/
-    TRIAL_API_HOST?: URL
+    TRIAL_API_HOST?: API_URL
     /*默认请求选项*/
     requestDefaultOptions?: RequestOption
     beforeRequestMiddleware?: <T extends RequestOption>(options: T) => T
