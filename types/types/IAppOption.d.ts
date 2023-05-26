@@ -26,4 +26,5 @@ interface IAppOption {
     systemInfo?: WechatMiniprogram.SystemInfo;
     safeArea?: WechatMiniprogram.SystemInfo['safeArea'];
     menuButtonPosition?: WechatMiniprogram.ClientRect;
+    [key: string]: any;
 }
