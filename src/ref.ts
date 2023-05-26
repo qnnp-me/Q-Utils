@@ -9,6 +9,6 @@
 type WxRequestOption = WechatMiniprogram.RequestOption
 type WxErr = WechatMiniprogram.Err
 
-declare interface WxResponse<T> extends WechatMiniprogram.RequestSuccessCallbackResult<T> {
-  data: any | T
+declare interface WxResponse<T> extends WechatMiniprogram.RequestSuccessCallbackResult<any> {
+  data: T | any
 }

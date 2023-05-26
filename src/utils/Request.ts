@@ -44,7 +44,7 @@ export const REQUEST = (options: Partial<WxRequestOption>, listen?: RequestListe
       if (requestSuccessMiddleware && requestSuccessMiddleware.length === 3) {
         requestSuccessMiddleware(res, resolve, fail)
       } else if (res.statusCode < 400) {
-        resolve(res)
+        resolve(res.data)
       } else {
         fail({errno: res.statusCode, errMsg: res.errMsg})
       }
