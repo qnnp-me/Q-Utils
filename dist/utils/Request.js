@@ -60,73 +60,73 @@ var Multipart = require('Multipart.min');
 var REQUEST = function (options, listen) {
     var task;
     options = prepareRequestOptions(options);
-    return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
-        var env, config, API_HOST, DEV_API_HOST, TRIAL_API_HOST, requestSuccessMiddleware, requestFailMiddleware, fail, success, base_url, absolute, _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    env = App_1.app.env, config = App_1.app.config;
-                    API_HOST = config.API_HOST, DEV_API_HOST = config.DEV_API_HOST, TRIAL_API_HOST = config.TRIAL_API_HOST, requestSuccessMiddleware = config.requestSuccessMiddleware, requestFailMiddleware = config.requestFailMiddleware;
-                    // 根据不同运行环境使用不同服务器
-                    if ((env === null || env === void 0 ? void 0 : env.version) === 'develop' && DEV_API_HOST) { // 开发版配置
-                        API_HOST = DEV_API_HOST;
-                    }
-                    else if ((env === null || env === void 0 ? void 0 : env.version) === 'trial' && TRIAL_API_HOST) { // 体验版配置
-                        API_HOST = TRIAL_API_HOST;
-                    }
-                    fail = function (err) {
-                        if (requestFailMiddleware && requestFailMiddleware.length === 2) {
-                            requestFailMiddleware(err, reject);
-                        }
-                        else {
-                            reject(err);
-                        }
-                    };
-                    success = function (res) {
-                        if (requestSuccessMiddleware && requestSuccessMiddleware.length === 3) {
-                            requestSuccessMiddleware(res, resolve, fail);
-                        }
-                        else if (res.statusCode < 400) {
-                            resolve(res);
-                        }
-                        else {
-                            fail({ errno: res.statusCode, errMsg: res.errMsg });
-                        }
-                    };
-                    /**
-                     * 已配置 API_HOST 情况下 相对和绝对路径 url 处理
-                     */
-                    if (!options.url.match(/^http/)) {
-                        if (!API_HOST) {
-                            fail({ errno: 0, errMsg: 'API_HOST 未设置' });
-                            return [2 /*return*/];
-                        }
-                        base_url = API_HOST;
-                        absolute = options.url.match(/^\//);
-                        if (absolute) {
-                            base_url = API_HOST.split('/').slice(0, 3).join('/');
-                        }
-                        options.url = base_url + options.url;
-                    }
-                    options = __assign(__assign({}, options), { success: success, fail: fail });
-                    if (!options.data) return [3 /*break*/, 2];
-                    _a = options;
-                    return [4 /*yield*/, prepareRequestFormData(options)
-                        // 请求前中间件
-                    ];
-                case 1:
-                    _a.data = _b.sent();
-                    _b.label = 2;
-                case 2:
-                    // 请求前中间件
-                    if (App_1.app.config.beforeRequestMiddleware)
-                        options = App_1.app.config.beforeRequestMiddleware(options);
-                    task = wx.request(options);
-                    listen && listen(task);
-                    return [2 /*return*/];
+    return new Promise(function (resolve, reject) {
+        var env = App_1.app.env, config = App_1.app.config;
+        var API_HOST = config.API_HOST, DEV_API_HOST = config.DEV_API_HOST, TRIAL_API_HOST = config.TRIAL_API_HOST, requestSuccessMiddleware = config.requestSuccessMiddleware, requestFailMiddleware = config.requestFailMiddleware;
+        // 根据不同运行环境使用不同服务器
+        if ((env === null || env === void 0 ? void 0 : env.version) === 'develop' && DEV_API_HOST) { // 开发版配置
+            API_HOST = DEV_API_HOST;
+        }
+        else if ((env === null || env === void 0 ? void 0 : env.version) === 'trial' && TRIAL_API_HOST) { // 体验版配置
+            API_HOST = TRIAL_API_HOST;
+        }
+        /**
+         * 请求失败或者配置错误调用
+         */
+        var fail = function (err) {
+            if (requestFailMiddleware && requestFailMiddleware.length === 2) {
+                requestFailMiddleware(err, reject);
             }
-        });
-    }); });
+            else {
+                reject(err);
+            }
+        };
+        var success = function (res) {
+            if (requestSuccessMiddleware && requestSuccessMiddleware.length === 3) {
+                requestSuccessMiddleware(res, resolve, fail);
+            }
+            else if (res.statusCode < 400) {
+                resolve(res);
+            }
+            else {
+                fail({ errno: res.statusCode, errMsg: res.errMsg });
+            }
+        };
+        /**
+         * 已配置 API_HOST 情况下 相对和绝对路径 url 处理
+         */
+        if (!options.url.match(/^http/)) {
+            if (!API_HOST) {
+                fail({ errno: 0, errMsg: 'API_HOST 未设置' });
+                return;
+            }
+            var base_url = API_HOST;
+            var absolute = options.url.match(/^\//);
+            if (absolute) {
+                base_url = API_HOST.split('/').slice(0, 3).join('/');
+            }
+            options.url = base_url + options.url;
+        }
+        options = __assign(__assign({}, options), { success: success, fail: fail });
+        var finaly = function (options) {
+            // 请求前中间件
+            if (App_1.app.config.beforeRequestMiddleware)
+                options = App_1.app.config.beforeRequestMiddleware(options);
+            task = wx.request(options);
+            listen && listen(task);
+        };
+        // 处理请求的数据，如 multipart/form-data 是需要特殊处理的
+        if (options.data) {
+            prepareRequestFormData(options)
+                .then(function (data) {
+                options.data = data;
+                finaly(options);
+            });
+        }
+        else {
+            finaly(options);
+        }
+    });
 };
 exports.REQUEST = REQUEST;
 var OPTIONS = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'OPTIONS', url: url, data: data }), listen); };
