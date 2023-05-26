@@ -3,14 +3,15 @@
  */
 
 export let app: IAppOption = getApp()
+const _this = this
 export const init = (initApp: IAppOption = getApp()) => {
-  app = initApp
   const {
     miniProgram: {envVersion, appId, version}
   } = wx.getAccountInfoSync() // 读取环境信息
   const menuButtonPosition = wx.getMenuButtonBoundingClientRect()
   const systemInfo = wx.getSystemInfoSync()
-  app = initApp
+  // @ts-ignore
+  _this.app = initApp
   app.appId = appId
   app.version = version
   app.env = {version: envVersion}
