@@ -13,7 +13,7 @@ declare interface IAppOption {
         TRIAL_API_HOST?: API_URL;
         requestDefaultOptions?: RequestOption;
         beforeRequestMiddleware?: <T extends RequestOption>(options: T) => T;
-        requestSuccessMiddleware?: <RES extends WxResponse<RES>, R extends (data: any) => void, E extends (err: any) => void>(res: RES, resolve: R, reject: E) => void;
+        requestSuccessMiddleware?: <RES extends WxResponse<any>, R extends (data: any) => void, E extends (err: any) => void>(res: RES, resolve: R, reject: E) => void;
         requestFailMiddleware?: <ER extends WxErr, E extends (err: any) => void>(err: ER, reject: E) => void;
     };
     globalData: {
