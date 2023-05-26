@@ -4,7 +4,7 @@ type URL = `http${'s' | ''}://${string}/`;
 interface IAppOption {
     appId?: WechatMiniprogram.MiniProgram['appId'];
     version?: WechatMiniprogram.MiniProgram['version'];
-    config: {
+    config?: {
         token?: string;
         authType?: 'cookie' | 'header';
         authKey?: string | 'token';
@@ -12,12 +12,13 @@ interface IAppOption {
         DEV_API_HOST?: URL;
         TRIAL_API_HOST?: URL;
         requestDefaultOptions?: RequestOption;
-        beforeRequestMiddleware: <T extends RequestOption>(options: T) => T;
+        beforeRequestMiddleware?: <T extends RequestOption>(options: T) => T;
         requestSuccessMiddleware?: <RES extends WxResponse, R extends RequestSuccess, E extends RequestFail>(res: RES, resolve: R, reject: E) => void;
         requestFailMiddleware?: <ER extends WxErr, E extends RequestFail>(err: ER, reject: E) => void;
     };
     globalData: {
         userInfo?: WechatMiniprogram.UserInfo;
+        [key: string]: any;
     };
     env?: {
         version: WechatMiniprogram.MiniProgram['envVersion'];
