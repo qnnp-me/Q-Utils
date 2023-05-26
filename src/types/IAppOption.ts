@@ -5,6 +5,7 @@
 /// <reference path="../ref.ts" />
 
 type  URL = `http${'s' | ''}://${string}/`
+
 interface IAppOption {
   appId?: WechatMiniprogram.MiniProgram['appId']
   version?: WechatMiniprogram.MiniProgram['version']
@@ -42,4 +43,6 @@ interface IAppOption {
   systemInfo?: WechatMiniprogram.SystemInfo
   safeArea?: WechatMiniprogram.SystemInfo['safeArea']
   menuButtonPosition?: WechatMiniprogram.ClientRect
+
+  [key: string]: any
 }
