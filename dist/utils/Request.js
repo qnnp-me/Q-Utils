@@ -53,60 +53,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CONNECT = exports.TRACE = exports.DELETE = exports.PUT = exports.POST = exports.HEAD = exports.GET = exports.OPTIONS = exports.REQUEST = void 0;
 var helpers_1 = require("./helpers");
 var App_1 = require("./App");
+var Multipart = require('Multipart.min');
 /**
- * 请求封装
+ * 默认请求封装
  */
-var REQUEST = function (options, listen) { return (new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, authType, authKey, TRIAL_API_HOST, DEV_API_HOST, requestSuccessMiddleware, requestFailMiddleware, API_HOST, token, requestDefaultOptions, env, task, fail, base_url, absolute, _b;
-    var _c;
-    var _d;
-    return __generator(this, function (_e) {
-        switch (_e.label) {
-            case 0:
-                _a = App_1.app.config, authType = _a.authType, authKey = _a.authKey, TRIAL_API_HOST = _a.TRIAL_API_HOST, DEV_API_HOST = _a.DEV_API_HOST, requestSuccessMiddleware = _a.requestSuccessMiddleware, requestFailMiddleware = _a.requestFailMiddleware, API_HOST = _a.API_HOST, token = _a.token, requestDefaultOptions = _a.requestDefaultOptions, env = App_1.app.env;
-                // 加载默认请求配置
-                options = __assign(__assign({ method: 'GET', dataType: 'json', timeout: 10000, enableCache: false, header: {} }, requestDefaultOptions), options);
-                // 根据不同运行环境使用不同服务器
-                if ((env === null || env === void 0 ? void 0 : env.version) === 'develop' && DEV_API_HOST) { // 开发版配置
-                    API_HOST = DEV_API_HOST;
-                }
-                else if ((env === null || env === void 0 ? void 0 : env.version) === 'trial' && TRIAL_API_HOST) { // 体验版配置
-                    API_HOST = TRIAL_API_HOST;
-                }
-                // 获取 Token ，不管后端如何实现类似值全统称 Token
-                token = token || wx.getStorageSync('token');
-                // 将 Token 储存到 app
-                if (!App_1.app.config.token) {
-                    App_1.app.config.token = token;
-                }
-                if (!authType || authType === 'cookie') {
-                    options.header = __assign(__assign({}, options.header), { cookie: "".concat(authKey || 'token', "=").concat(token, "; ").concat(((_d = options.header) === null || _d === void 0 ? void 0 : _d.cookie) || '') });
-                }
-                else if (authType === 'header') {
-                    options.header = __assign((_c = {}, _c[authKey || 'Authorization'] = token, _c), options.header);
-                }
-                fail = function (err) {
-                    if (requestFailMiddleware && requestFailMiddleware.length === 2) {
-                        requestFailMiddleware(err, reject);
+var REQUEST = function (options, listen) {
+    var task;
+    options = prepareRequestOptions(options);
+    return new Promise(function (resolve, reject) { return __awaiter(void 0, void 0, void 0, function () {
+        var env, config, API_HOST, DEV_API_HOST, TRIAL_API_HOST, requestSuccessMiddleware, requestFailMiddleware, fail, success, base_url, absolute, _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    env = App_1.app.env, config = App_1.app.config;
+                    API_HOST = config.API_HOST, DEV_API_HOST = config.DEV_API_HOST, TRIAL_API_HOST = config.TRIAL_API_HOST, requestSuccessMiddleware = config.requestSuccessMiddleware, requestFailMiddleware = config.requestFailMiddleware;
+                    // 根据不同运行环境使用不同服务器
+                    if ((env === null || env === void 0 ? void 0 : env.version) === 'develop' && DEV_API_HOST) { // 开发版配置
+                        API_HOST = DEV_API_HOST;
                     }
-                    else {
-                        reject(err);
+                    else if ((env === null || env === void 0 ? void 0 : env.version) === 'trial' && TRIAL_API_HOST) { // 体验版配置
+                        API_HOST = TRIAL_API_HOST;
                     }
-                };
-                // 已配置 API_HOST 情况下 相对和绝对路径 url 处理
-                if (!options.url.match(/^http/)) {
-                    if (!API_HOST) {
-                        fail({ errno: 0, errMsg: 'API_HOST 未设置' });
-                        return [2 /*return*/];
-                    }
-                    base_url = API_HOST;
-                    absolute = options.url.match(/^\//);
-                    if (absolute) {
-                        base_url = API_HOST.split('/').slice(0, 3).join('/');
-                    }
-                    options.url = base_url + options.url;
-                }
-                options = __assign(__assign({}, options), { success: function (res) {
+                    fail = function (err) {
+                        if (requestFailMiddleware && requestFailMiddleware.length === 2) {
+                            requestFailMiddleware(err, reject);
+                        }
+                        else {
+                            reject(err);
+                        }
+                    };
+                    success = function (res) {
                         if (requestSuccessMiddleware && requestSuccessMiddleware.length === 3) {
                             requestSuccessMiddleware(res, resolve, fail);
                         }
@@ -116,25 +92,42 @@ var REQUEST = function (options, listen) { return (new Promise(function (resolve
                         else {
                             fail({ errno: res.statusCode, errMsg: res.errMsg });
                         }
-                    }, fail: fail });
-                if (!options.data) return [3 /*break*/, 2];
-                _b = options;
-                return [4 /*yield*/, prepareRequestData(options)
+                    };
+                    /**
+                     * 已配置 API_HOST 情况下 相对和绝对路径 url 处理
+                     */
+                    if (!options.url.match(/^http/)) {
+                        if (!API_HOST) {
+                            fail({ errno: 0, errMsg: 'API_HOST 未设置' });
+                            return [2 /*return*/];
+                        }
+                        base_url = API_HOST;
+                        absolute = options.url.match(/^\//);
+                        if (absolute) {
+                            base_url = API_HOST.split('/').slice(0, 3).join('/');
+                        }
+                        options.url = base_url + options.url;
+                    }
+                    options = __assign(__assign({}, options), { success: success, fail: fail });
+                    if (!options.data) return [3 /*break*/, 2];
+                    _a = options;
+                    return [4 /*yield*/, prepareRequestFormData(options)
+                        // 请求前中间件
+                    ];
+                case 1:
+                    _a.data = _b.sent();
+                    _b.label = 2;
+                case 2:
                     // 请求前中间件
-                ];
-            case 1:
-                _b.data = _e.sent();
-                _e.label = 2;
-            case 2:
-                // 请求前中间件
-                if (App_1.app.config.beforeRequestMiddleware)
-                    options = App_1.app.config.beforeRequestMiddleware(options);
-                task = wx.request(options);
-                listen && listen(task);
-                return [2 /*return*/];
-        }
-    });
-}); })); };
+                    if (App_1.app.config.beforeRequestMiddleware)
+                        options = App_1.app.config.beforeRequestMiddleware(options);
+                    task = wx.request(options);
+                    listen && listen(task);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+};
 exports.REQUEST = REQUEST;
 var OPTIONS = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'OPTIONS', url: url, data: data }), listen); };
 exports.OPTIONS = OPTIONS;
@@ -152,8 +145,36 @@ var TRACE = function (url, data, options, listen) { return (0, exports.REQUEST)(
 exports.TRACE = TRACE;
 var CONNECT = function (url, data, options, listen) { return (0, exports.REQUEST)(__assign(__assign({}, options), { method: 'CONNECT', url: url, data: data }), listen); };
 exports.CONNECT = CONNECT;
-var Multipart = require('Multipart.min');
-var prepareRequestData = function (options) { return __awaiter(void 0, void 0, void 0, function () {
+/**
+ * 检查准备请求选项
+ */
+var prepareRequestOptions = function (options) {
+    var _a;
+    var _b;
+    var _c = App_1.app.config, authType = _c.authType, authKey = _c.authKey, token = _c.token, requestDefaultOptions = _c.requestDefaultOptions;
+    // 加载默认请求配置
+    options = __assign(__assign({ method: 'GET', dataType: 'json', timeout: 10000, enableCache: false, header: {} }, requestDefaultOptions), options);
+    /**
+     * Token 相关处理
+     */
+    // 获取 Token ，不管后端如何实现类似值全统称 Token
+    token = token || wx.getStorageSync('token');
+    // 将 Token 储存到 app
+    if (!App_1.app.config.token) {
+        App_1.app.config.token = token;
+    }
+    if (!authType || authType === 'cookie') {
+        options.header = __assign(__assign({}, options.header), { cookie: "".concat(authKey || 'token', "=").concat(token, "; ").concat(((_b = options.header) === null || _b === void 0 ? void 0 : _b.cookie) || '') });
+    }
+    else if (authType === 'header') {
+        options.header = __assign((_a = {}, _a[authKey || 'Authorization'] = token, _a), options.header);
+    }
+    return options;
+};
+/**
+ * 处理 FormData
+ */
+var prepareRequestFormData = function (options) { return __awaiter(void 0, void 0, void 0, function () {
     var data, formData, name, value;
     var _a, _b;
     return __generator(this, function (_c) {

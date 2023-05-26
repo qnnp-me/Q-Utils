@@ -6,6 +6,6 @@
 //  AUTO REF
 //  noinspection ES6UnusedImports
 
-import WxRequestOption = WechatMiniprogram.RequestOption
-import WxErr = WechatMiniprogram.Err
-import WxResponse = WechatMiniprogram.RequestSuccessCallbackResult
+type WxRequestOption = WechatMiniprogram.RequestOption
+type WxErr = WechatMiniprogram.Err
+type WxResponse = WechatMiniprogram.RequestSuccessCallbackResult

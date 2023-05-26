@@ -3,32 +3,33 @@
  */
 
 export let app: IAppOption = getApp()
-export const init          = (initApp: IAppOption = getApp()) => {
+export const init = (initApp: IAppOption = getApp()) => {
+  app = initApp
   const {
-          miniProgram: { envVersion, appId, version }
-        }                  = wx.getAccountInfoSync() // 读取环境信息
+    miniProgram: {envVersion, appId, version}
+  } = wx.getAccountInfoSync() // 读取环境信息
   const menuButtonPosition = wx.getMenuButtonBoundingClientRect()
-  const systemInfo         = wx.getSystemInfoSync()
-  app                      = initApp
-  app.appId                = appId
-  app.version              = version
-  app.env                  = { version: envVersion }
-  app.systemInfo           = systemInfo
-  app.safeArea             = systemInfo.safeArea
-  app.menuButtonPosition   = menuButtonPosition
-  app.update               = selfUpdate
+  const systemInfo = wx.getSystemInfoSync()
+  app = initApp
+  app.appId = appId
+  app.version = version
+  app.env = {version: envVersion}
+  app.systemInfo = systemInfo
+  app.safeArea = systemInfo.safeArea
+  app.menuButtonPosition = menuButtonPosition
+  app.update = selfUpdate
   selfUpdate()
 }
-const selfUpdate           = () => {
+const selfUpdate = () => {
   const updateManager = wx.getUpdateManager()
   updateManager.onCheckForUpdate(function (res) {
     console.log(`Check Update: ${res.hasUpdate ? 'New Update' : 'No Update'}`)
   })
   updateManager.onUpdateReady(function () {
     wx.showModal({
-      title  : '更新提示',
+      title: '更新提示',
       content: '新版本已经准备好，是否重启应用？',
-      success (res) {
+      success(res) {
         if (res.confirm) {
           updateManager.applyUpdate()
         }

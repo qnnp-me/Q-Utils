@@ -7,6 +7,7 @@ exports.init = exports.app = void 0;
 exports.app = getApp();
 var init = function (initApp) {
     if (initApp === void 0) { initApp = getApp(); }
+    exports.app = initApp;
     var _a = wx.getAccountInfoSync().miniProgram, envVersion = _a.envVersion, appId = _a.appId, version = _a.version; // 读取环境信息
     var menuButtonPosition = wx.getMenuButtonBoundingClientRect();
     var systemInfo = wx.getSystemInfoSync();
