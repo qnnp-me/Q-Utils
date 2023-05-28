@@ -4,7 +4,7 @@
 
 export let app: IAppOption = getApp()
 const _this = this
-export const init = (initApp: IAppOption = getApp()) => {
+export const init = (initApp: IAppOption = getApp()): Promise<IAppOption> => {
   // @ts-ignore
   _this.m.exports.app = initApp
   const {

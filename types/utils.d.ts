@@ -11,6 +11,6 @@ declare const _default: {
     TRACE: MethodRequest;
     CONNECT: MethodRequest;
     app: IAppOption;
-    init: (initApp?: IAppOption) => Promise<unknown>;
+    init: (initApp?: IAppOption) => Promise<IAppOption>;
 };
 export = _default;
