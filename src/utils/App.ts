@@ -20,6 +20,9 @@ export const init = (initApp: IAppOption = getApp()) => {
   initApp.menuButtonPosition = menuButtonPosition
   initApp.update = selfUpdate
   selfUpdate()
+  return new Promise((resolve) => {
+    resolve(initApp)
+  })
 }
 const selfUpdate = () => {
   const updateManager = wx.getUpdateManager()
