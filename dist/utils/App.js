@@ -2,10 +2,10 @@
 /*
  Copyright (c) 2023. qnnp <qnnp@qnnp.me> https://qnnp.me
  */
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.init = exports.app = void 0;
 exports.app = getApp();
-var _this = this;
 var init = function (initApp) {
     if (initApp === void 0) { initApp = getApp(); }
     // @ts-ignore
