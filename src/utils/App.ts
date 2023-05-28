@@ -3,10 +3,9 @@
  */
 
 export let app: IAppOption = getApp()
-const _this = this
 export const init = (initApp: IAppOption = getApp()): Promise<IAppOption> => {
   // @ts-ignore
-  _this.m.exports.app = initApp
+  this.m.exports.app = initApp
   const {
     miniProgram: {envVersion, appId, version}
   } = wx.getAccountInfoSync() // 读取环境信息
