@@ -21,6 +21,9 @@ var init = function (initApp) {
     initApp.menuButtonPosition = menuButtonPosition;
     initApp.update = selfUpdate;
     selfUpdate();
+    return new Promise(function (resolve) {
+        resolve(initApp);
+    });
 };
 exports.init = init;
 var selfUpdate = function () {
